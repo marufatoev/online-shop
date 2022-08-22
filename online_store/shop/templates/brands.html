@@ -1,0 +1,6 @@
+{% for brand in brands %}
+   <a href="{% url 'shop:products' %}?brand={{ brand.pk }}" class="navbar-item has-text-black">
+       {{ brand }}
+   </a>
+{% endfor %}
+

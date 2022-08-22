@@ -1,0 +1,10 @@
+<div class="columns is-multiline">
+    <div class="column">
+        {% for category in categories %}
+                <a href="{% url 'shop:products' %}?category={{ category.pk }}" class="btn_categories is-size-5">
+                    {{ category }}
+                </a>
+        {% endfor %}
+    </div>
+</div>
+ 

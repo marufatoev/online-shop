@@ -1,0 +1,57 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+   <div class="container">
+       <div class="columns">
+           <div class="column">
+               <div class="box mt-2 has-background-warning-light">
+                <form method="post" action="{% url 'shop:create_order' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="title">
+                        Shopping Information:
+                    </div>
+                    {% for field in form %}
+                        <div class="field">
+                            <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="button is-fullwidth is-warning">Submit</button>
+                 </form>
+               </div>
+           </div>
+           <div class="column is-6">
+               <div class="box has-background-warning-light">
+                   <a class="button is-warning" href="{% url 'shop:cart' %}">Back to cart</a>
+                   <hr>
+                   <div class="title">Order Summary</div>
+                   <table class="table is-fullwidth has-background-warning-light">
+                       <thead>
+                       <tr class="has-text-weight-bold">
+                           <td></td>
+                           <td>Product</td>
+                           <td>Price</td>
+                           <td>Quantity</td>
+                           <td>Total</td>
+                       </tr>
+                       </thead>
+                       <tbody>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>
+                                <img src="{{ item.product.thumb.url }}" alt="" width="100" height="100">
+                            </td>
+                            <td>{{ item }}</td>
+                            <td>{{ item.product.price }} $</td>
+                            <td>x {{ item.quantity }}</td>
+                            <td>{{ item.total_price }}</td>
+                        </tr>
+                     {% endfor %}
+                       </tbody>
+                   </table>
+                   <p class="title is-size-4">Total: {{ total_price }} $ </p>
+               </div>
+           </div>
+       </div>
+   </div>
+{% endblock %}
